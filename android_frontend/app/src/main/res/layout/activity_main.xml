@@ -180,7 +180,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_12"
-            android:text="@string/reset_game" />
+            android:text="@string/reset_game"
+            android:contentDescription="@string/reset_game" />
     </LinearLayout>
 
 </LinearLayout>

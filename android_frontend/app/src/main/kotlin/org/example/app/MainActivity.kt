@@ -9,16 +9,11 @@ import android.widget.TextView
 /**
  * Main single-screen Activity for the Tic Tac Toe game.
  *
- * UI responsibilities:
- * - Score display at top
- * - 3x3 board in the center
- * - Mode selection + reset buttons at bottom
- *
- * Game responsibilities:
- * - Alternating turns
- * - Detect wins and draws
- * - Maintain running scores
- * - Optional simple AI for Player vs Computer mode
+ * UX goals:
+ * - Clear status messaging (turn / win / draw)
+ * - Mode switching (PvP / PvC) resets board, retains scores
+ * - Reset Game resets board only; long-press resets scores too
+ * - Accessible cell labels that reflect current state
  */
 class MainActivity : Activity() {
 
@@ -36,16 +31,17 @@ class MainActivity : Activity() {
 
     private val game = TicTacToeGame()
 
+    // Static base descriptions from XML (e.g., "Cell 1") so we can append state for accessibility.
+    private lateinit var baseCellDescriptions: Array<String>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Our XML uses MaterialComponents theme; this must be set before calling setContentView.
         setContentView(R.layout.activity_main)
 
         bindViews()
-        renderAll()
 
-        // Default mode: PvP
+        // Default mode: PvP (resets board as part of mode set)
         setMode(TicTacToeGame.Mode.PLAYER_VS_PLAYER)
     }
 
@@ -71,23 +67,32 @@ class MainActivity : Activity() {
             findViewById(R.id.cell8),
         )
 
-        for (i in cellButtons.indices) {
-            val idx = i
-            cellButtons[i].setOnClickListener {
-                onCellTapped(idx)
-            }
+        // Capture the base descriptions defined in XML so we can preserve localization.
+        baseCellDescriptions = Array(cellButtons.size) { i ->
+            cellButtons[i].contentDescription?.toString()?.trim().orEmpty()
         }
 
-        modePvpButton.setOnClickListener {
-            setMode(TicTacToeGame.Mode.PLAYER_VS_PLAYER)
+        for (i in cellButtons.indices) {
+            val idx = i
+            cellButtons[i].setOnClickListener { onCellTapped(idx) }
         }
-        modePvcButton.setOnClickListener {
-            setMode(TicTacToeGame.Mode.PLAYER_VS_COMPUTER)
-        }
+
+        modePvpButton.setOnClickListener { setMode(TicTacToeGame.Mode.PLAYER_VS_PLAYER) }
+        modePvcButton.setOnClickListener { setMode(TicTacToeGame.Mode.PLAYER_VS_COMPUTER) }
+
+        // Reset Game: board only (scores remain).
         resetButton.setOnClickListener {
             game.resetBoard()
             renderAll()
             maybeTriggerComputerMoveIfNeeded()
+        }
+
+        // Long-press Reset Game: full reset (board + scores).
+        resetButton.setOnLongClickListener {
+            game.resetAll()
+            renderAll()
+            maybeTriggerComputerMoveIfNeeded()
+            true
         }
     }
 
@@ -116,13 +121,14 @@ class MainActivity : Activity() {
     }
 
     private fun maybeTriggerComputerMoveIfNeeded() {
-        if (!game.isGameOver() && game.mode == TicTacToeGame.Mode.PLAYER_VS_COMPUTER && game.currentPlayer == TicTacToeGame.Player.O) {
-            // Tiny delay-like behavior without using handlers; just post to UI queue for smoother feel.
+        if (!game.isGameOver() &&
+            game.mode == TicTacToeGame.Mode.PLAYER_VS_COMPUTER &&
+            game.currentPlayer == TicTacToeGame.Player.O
+        ) {
+            // Post to UI queue for a slightly smoother feel (no extra dependencies).
             statusText.post {
                 val moved = game.playComputerMove()
-                if (moved) {
-                    renderAll()
-                }
+                if (moved) renderAll()
             }
         }
     }
@@ -147,6 +153,7 @@ class MainActivity : Activity() {
         for (i in cellButtons.indices) {
             val button = cellButtons[i]
             val cell = game.board[i]
+
             button.text = when (cell) {
                 TicTacToeGame.Player.X -> "X"
                 TicTacToeGame.Player.O -> "O"
@@ -162,6 +169,16 @@ class MainActivity : Activity() {
             if (winner != null && winningLine != null && winningLine.contains(i)) {
                 button.isSelected = true
             }
+
+            // Accessibility: Update cell content descriptions with the current value/state.
+            // We keep the base "Cell N" string from XML and append state.
+            val base = baseCellDescriptions.getOrNull(i).takeUnless { it.isNullOrBlank() } ?: "Cell ${i + 1}"
+            val state = when (cell) {
+                TicTacToeGame.Player.X -> "X"
+                TicTacToeGame.Player.O -> "O"
+                null -> if (game.isGameOver()) "empty, game over" else "empty"
+            }
+            button.contentDescription = "$base, $state"
         }
     }
 

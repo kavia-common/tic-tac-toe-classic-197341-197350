@@ -4,6 +4,10 @@ package org.example.app
  * Simple Tic Tac Toe game engine with running scores and an optional computer player.
  *
  * This is intentionally UI-framework-agnostic: it does not depend on Android classes.
+ *
+ * UX expectations:
+ * - Reset board retains running scores
+ * - In PvC mode: human is X, computer is O; X always starts
  */
 class TicTacToeGame {
 
@@ -32,6 +36,7 @@ class TicTacToeGame {
     fun resetBoard() {
         /** Clears board state but retains running scores. */
         for (i in board.indices) board[i] = null
+        // Always start with X for consistent UX (especially important in PvC).
         currentPlayer = Player.X
         winner = null
         winningLine = null
@@ -57,6 +62,9 @@ class TicTacToeGame {
         if (board[index] != null) return false
         if (isGameOver()) return false
 
+        // In PvC: only X is human; ignore attempts to "play as O".
+        if (mode == Mode.PLAYER_VS_COMPUTER && currentPlayer != Player.X) return false
+
         board[index] = currentPlayer
         updateOutcome()
 
@@ -78,7 +86,15 @@ class TicTacToeGame {
         if (currentPlayer != Player.O) return false
 
         val move = chooseComputerMove()
-        return if (move != null) playAt(move) else false
+        return if (move != null) {
+            // Temporarily allow the computer to place O without going through the "human-only" gate.
+            board[move] = Player.O
+            updateOutcome()
+            if (!isGameOver()) currentPlayer = Player.X
+            true
+        } else {
+            false
+        }
     }
 
     // PUBLIC_INTERFACE

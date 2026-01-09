@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Tic Tac Toe</string>
+
+    <string name="title_tic_tac_toe">Tic Tac Toe</string>
+    <string name="subtitle">Ocean Professional</string>
+
+    <string name="mode_pvp">Player vs Player</string>
+    <string name="mode_pvc">Player vs Computer</string>
+    <string name="reset_game">Reset Game</string>
+
+    <string name="score_x">X: %1$d</string>
+    <string name="score_o">O: %1$d</string>
+    <string name="score_ties">Ties: %1$d</string>
+
+    <string name="score_x_default">X: 0</string>
+    <string name="score_o_default">O: 0</string>
+    <string name="score_ties_default">Ties: 0</string>
+
+    <string name="status_turn">Turn: %1$s</string>
+    <string name="status_turn_default">Turn: X</string>
+    <string name="status_x_wins">Player X wins</string>
+    <string name="status_o_wins">Player O wins</string>
+    <string name="status_draw">It\'s a draw</string>
+
+    <!-- Accessibility content descriptions -->
+    <string name="cell_0">Cell 1</string>
+    <string name="cell_1">Cell 2</string>
+    <string name="cell_2">Cell 3</string>
+    <string name="cell_3">Cell 4</string>
+    <string name="cell_4">Cell 5</string>
+    <string name="cell_5">Cell 6</string>
+    <string name="cell_6">Cell 7</string>
+    <string name="cell_7">Cell 8</string>
+    <string name="cell_8">Cell 9</string>
+</resources>

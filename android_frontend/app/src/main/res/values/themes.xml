@@ -1,0 +1,19 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme -->
+    <style name="Theme.TicTacToe" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/ocean_primary</item>
+        <item name="colorPrimaryVariant">@color/ocean_primary</item>
+        <item name="colorSecondary">@color/ocean_secondary</item>
+        <item name="colorSecondaryVariant">@color/ocean_secondary</item>
+        <item name="colorError">@color/ocean_error</item>
+
+        <item name="android:statusBarColor">@color/ocean_primary</item>
+        <item name="android:navigationBarColor">@color/ocean_background</item>
+
+        <item name="android:windowBackground">@color/ocean_background</item>
+
+        <!-- Ensure readable defaults -->
+        <item name="android:textColorPrimary">@color/ocean_text</item>
+        <item name="android:textColorSecondary">@color/ocean_text_muted</item>
+    </style>
+</resources>

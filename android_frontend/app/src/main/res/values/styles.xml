@@ -1,0 +1,41 @@
+<resources>
+    <style name="ScoreChip">
+        <item name="android:background">@drawable/bg_chip</item>
+        <item name="android:paddingLeft">@dimen/space_10</item>
+        <item name="android:paddingRight">@dimen/space_10</item>
+        <item name="android:paddingTop">@dimen/space_10</item>
+        <item name="android:paddingBottom">@dimen/space_10</item>
+        <item name="android:textColor">@color/ocean_text</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="BoardCell">
+        <item name="android:layout_width">@dimen/board_cell_size</item>
+        <item name="android:layout_height">@dimen/board_cell_size</item>
+        <item name="android:background">@drawable/selector_board_cell</item>
+        <item name="android:textColor">@color/ocean_primary</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="ActionButton">
+        <item name="android:background">@drawable/bg_button_outline</item>
+        <item name="android:textColor">@color/ocean_text</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingTop">@dimen/space_12</item>
+        <item name="android:paddingBottom">@dimen/space_12</item>
+    </style>
+
+    <style name="PrimaryButton">
+        <item name="android:background">@drawable/bg_button_primary</item>
+        <item name="android:textColor">@color/ocean_surface</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingTop">@dimen/space_12</item>
+        <item name="android:paddingBottom">@dimen/space_12</item>
+    </style>
+</resources>

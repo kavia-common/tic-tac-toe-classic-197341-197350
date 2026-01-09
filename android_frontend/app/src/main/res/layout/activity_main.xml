@@ -1,0 +1,186 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ocean_background"
+    android:orientation="vertical"
+    android:padding="@dimen/space_16"
+    tools:context=".MainActivity">
+
+    <!-- Top: Score area -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/title_tic_tac_toe"
+            android:textColor="@color/ocean_text"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/subtitleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_4"
+            android:text="@string/subtitle"
+            android:textColor="@color/ocean_text_muted"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_12"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <TextView
+                android:id="@+id/scoreXText"
+                style="@style/ScoreChip"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/score_x_default" />
+
+            <TextView
+                android:id="@+id/scoreOText"
+                style="@style/ScoreChip"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_8"
+                android:layout_weight="1"
+                android:text="@string/score_o_default" />
+
+            <TextView
+                android:id="@+id/scoreTiesText"
+                style="@style/ScoreChip"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_8"
+                android:layout_weight="1"
+                android:text="@string/score_ties_default" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/statusText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_12"
+            android:background="@drawable/bg_card"
+            android:padding="@dimen/space_12"
+            android:text="@string/status_turn_default"
+            android:textColor="@color/ocean_text"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <!-- Middle: Board centered -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <GridLayout
+            android:id="@+id/boardGrid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alignmentMode="alignMargins"
+            android:background="@drawable/bg_board"
+            android:columnCount="3"
+            android:padding="@dimen/space_10"
+            android:rowCount="3"
+            android:useDefaultMargins="true">
+
+            <Button
+                android:id="@+id/cell0"
+                style="@style/BoardCell"
+                android:contentDescription="@string/cell_0" />
+
+            <Button
+                android:id="@+id/cell1"
+                style="@style/BoardCell"
+                android:contentDescription="@string/cell_1" />
+
+            <Button
+                android:id="@+id/cell2"
+                style="@style/BoardCell"
+                android:contentDescription="@string/cell_2" />
+
+            <Button
+                android:id="@+id/cell3"
+                style="@style/BoardCell"
+                android:contentDescription="@string/cell_3" />
+
+            <Button
+                android:id="@+id/cell4"
+                style="@style/BoardCell"
+                android:contentDescription="@string/cell_4" />
+
+            <Button
+                android:id="@+id/cell5"
+                style="@style/BoardCell"
+                android:contentDescription="@string/cell_5" />
+
+            <Button
+                android:id="@+id/cell6"
+                style="@style/BoardCell"
+                android:contentDescription="@string/cell_6" />
+
+            <Button
+                android:id="@+id/cell7"
+                style="@style/BoardCell"
+                android:contentDescription="@string/cell_7" />
+
+            <Button
+                android:id="@+id/cell8"
+                style="@style/BoardCell"
+                android:contentDescription="@string/cell_8" />
+        </GridLayout>
+    </LinearLayout>
+
+    <!-- Bottom: Actions -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/modePvpButton"
+                style="@style/ActionButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/mode_pvp" />
+
+            <Button
+                android:id="@+id/modePvcButton"
+                style="@style/ActionButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_10"
+                android:layout_weight="1"
+                android:text="@string/mode_pvc" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/resetButton"
+            style="@style/PrimaryButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_12"
+            android:text="@string/reset_game" />
+    </LinearLayout>
+
+</LinearLayout>
